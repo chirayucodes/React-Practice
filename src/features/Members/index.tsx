@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Loader } from "shared/components/loader";
 
-interface memberItems {
+interface MemberItems {
   id: number;
   name: string;
   memberTypeID: number;
@@ -9,7 +10,7 @@ interface memberItems {
 
 export default function MemberList() {
   const [loading, setLoading] = useState(true);
-  const [member, setMember] = useState<memberItems[]>([]);
+  const [member, setMember] = useState<MemberItems[]>([]);
 
   useEffect(() => {
     fetch("https://localhost:7215/api/members", {
@@ -23,33 +24,34 @@ export default function MemberList() {
       .then((data) => setMember(data))
       .finally(() => setLoading(false));
   }, []);
+
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-10">
       {loading ? (
-        <div>loading</div>
+        <Loader />
       ) : (
         <>
           <h1 className="text-3xl font-bold mb-6 text-gray-800">
-            Library members Details
+            Library Members
           </h1>
 
-          <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-            <table className="min-w-full text-left">
-              <thead className="bg-gradient-to-r from-black to-indigo-600 bg-gray-800 text-white">
+          <div className="w-full max-w-5xl overflow-x-auto">
+            <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+              <thead className="bg-gradient-to-r from-black to-indigo-600 text-white">
                 <tr>
-                  <th className="py-3 px-4">name</th>
-                  <th className="py-3 px-4">MemberType</th>
+                  <th className="py-3 px-4 text-left">Name</th>
+                  <th className="py-3 px-4 text-left">Member Type</th>
                 </tr>
               </thead>
 
               <tbody>
-                {member.map((member) => (
+                {member.map((m) => (
                   <tr
-                    key={member.id}
-                    className="border-b hover:bg-gray-200 transition"
+                    key={m.id}
+                    className="border-b hover:bg-gray-100 transition"
                   >
-                    <td className="py-3 px-4 font-semibold">{member.name}</td>
-                    <td className="py-3 px-4">{member.typeName}</td>
+                    <td className="py-3 px-4 font-medium">{m.name}</td>
+                    <td className="py-3 px-4">{m.typeName}</td>
                   </tr>
                 ))}
               </tbody>
