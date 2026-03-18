@@ -1,26 +1,33 @@
 import "./button.css";
 
-export function Button() {
+interface ButtonProps {
+  // data: string[];
+  label: string[];
+}
+
+export default function Button({ label }: ButtonProps) {
   return (
-    <button className="btn-101">
-      Glow Button
-      <svg>
-        <defs>
-          <filter id="glow">
-            <feGaussianBlur
-              result="coloredBlur"
-              stdDeviation="5"
-            ></feGaussianBlur>
-            <feMerge>
-              <feMergeNode in="coloredBlur"></feMergeNode>
-              <feMergeNode in="coloredBlur"></feMergeNode>
-              <feMergeNode in="coloredBlur"></feMergeNode>
-              <feMergeNode in="SourceGraphic"></feMergeNode>
-            </feMerge>
-          </filter>
-        </defs>
-        <rect />
-      </svg>
-    </button>
+    <div className="flex gap-4">
+      <button className="btn-101">
+        {label}
+
+  
+        <svg>
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur result="coloredBlur" stdDeviation="5" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <rect x="0" y="0" width="100%" height="100%" />
+        </svg>
+      </button>
+    </div>
   );
 }

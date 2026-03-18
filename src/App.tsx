@@ -11,22 +11,20 @@ function App() {
         <Link to="/" className="text-white font-semibold">
           Home
         </Link>
-        |            
+        |
         <Link to="/books" className="text-white font-semibold ">
           Books
         </Link>
-        |            
+        |
         <Link to="/members" className="text-white font-semibold">
           Members
         </Link>
-
-
       </nav>
       <div className="p-6">
         <Routes>
           <Route index element={<Home />} />
           <Route path="/books" element={<BookDetails />} />
-          <Route path="/members" element={<MemberList/>} />
+          <Route path="/members" element={<MemberList />} />
         </Routes>
       </div>
     </div>
