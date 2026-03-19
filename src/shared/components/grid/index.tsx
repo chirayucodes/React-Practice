@@ -13,37 +13,54 @@ interface GridProps<T> {
 }
 export function Grid<T>(props: GridProps<T>) {
   return (
-    <table className="bg-amber-100 w-full border border-solid border-cyan-500">
-      <thead>
+    <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      {/* HEADER */}
+      <thead className="bg-gradient-to-r from-black to-indigo-600 text-white">
         <tr>
           {props.columns.map((c) => (
-            <th key={nanoid()}>{c.header}</th>
+            <th key={nanoid()} className="py-3 px-4 text-left font-semibold">
+              {c.header}
+            </th>
           ))}
         </tr>
       </thead>
+
+      {/* BODY */}
       <tbody>
         {props.data.map((item) => {
           return (
-            <tr key={nanoid()}>
+            <tr
+              key={nanoid()}
+              className="border-b hover:bg-gray-100 transition"
+            >
               {props.columns.map((c) => {
+                // NORMAL FIELD
                 if (c.field) {
                   const v = item[c.field as keyof T];
-                  return <td key={nanoid()}>{v as string}</td>;
+
+                  return (
+                    <td key={nanoid()} className="py-3 px-4 text-gray-700">
+                      {v as string}
+                    </td>
+                  );
                 }
 
+                // BUTTON COLUMN
                 if (c.onClick) {
                   return (
-                    <td key={nanoid()}>
+                    <td key={nanoid()} className="py-3 px-4">
                       <button
                         type="button"
-                        className="py-1 px-3 border border-solid"
                         onClick={() => c.onClick?.(item)}
+                        className="bg-indigo-600 text-white px-3 py-1 rounded-md hover:bg-indigo-700 transition"
                       >
                         {c.buttonCaption}
                       </button>
                     </td>
                   );
                 }
+
+                return null;
               })}
             </tr>
           );
