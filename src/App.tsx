@@ -1,5 +1,5 @@
 import { Link, Routes, Route } from "react-router";
-import BookDetails from "./features/Books/BookDetails";
+import Books from "./features/Books";
 import Home from "./features/Home";
 import MemberList from "./features/Members";
 import "./App.css";
@@ -12,7 +12,7 @@ function App() {
           Home
         </Link>
         |
-        <Link to="/books" className="text-white font-semibold ">
+        <Link to="/books/list" className="text-white font-semibold ">
           Books
         </Link>
         |
@@ -23,7 +23,7 @@ function App() {
       <div className="p-6">
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/books" element={<BookDetails />} />
+          <Route path="/books/*" element={<Books />} />
           <Route path="/members" element={<MemberList />} />
         </Routes>
       </div>
