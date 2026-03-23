@@ -4,6 +4,8 @@ import { ApiService } from "services";
 import { Grid } from "shared/components/grid";
 import { Loader } from "shared/components/loader";
 import AddBook from "./Create";
+import { useNavigate } from "react-router";
+import { useBooksQuery, useDeleteBookMutation } from "../queries";
 
 interface BookDetails {
   id: number;
@@ -15,21 +17,26 @@ interface BookDetails {
 }
 
 export default function List() {
-  const [loading, setLoading] = useState(true);
-  const [bookDetails, setBookDetails] = useState<BookDetails[]>([]);
-  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    ApiService.get<BookDetails[]>("books")
-      .then((data) => setBookDetails(data ?? []))
-      .finally(() => setLoading(false));
-  }, []);
+  const {data =[], isLoading}= useBooksQuery();
+  const {isPending, mutateAsync} = useDeleteBookMutation();
+
+  if (isLoading || isPending){
+    return<Loader/>
+  }
+
+  if (data.length === 0){
+    return <div>No Books Found.</div>
+  }
+
+  function setShowModal(arg0: boolean): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-10">
-      {loading ? (
-        <Loader />
-      ) : (
+       : (
         <>
           <h1 className="text-3xl font-bold mb-6 text-gray-800">
             Library Books
@@ -37,13 +44,13 @@ export default function List() {
 
           <button
             onClick={() => setShowModal(true)}
-            className="mb-4 px-4 py-2 bg-green-600 text-white rounded"
+            className="mb-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
           >
             + Add Book
           </button>
 
-          <Grid
-            data={bookDetails}
+          <Grid<BookDetails>
+            data={data}
             columns={[
               {
                 field: "bookTitle",
@@ -78,11 +85,7 @@ export default function List() {
               },
             ]}
           />
-          <AddBook
-            isOpen={showModal}
-            onClose={() => setShowModal(false)}
-
-          />
+          <AddBook isOpen={showModal} onClose={() => setShowModal(false)} />
         </>
       )}
     </div>

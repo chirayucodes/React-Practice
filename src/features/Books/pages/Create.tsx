@@ -12,7 +12,7 @@ export default function AddBook({ isOpen, onClose }: Props) {
     authorName: "",
     publisherName: "",
     bookPrice: "",
-    bookCategory: "",
+    categoryID: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -22,7 +22,7 @@ export default function AddBook({ isOpen, onClose }: Props) {
   };
 
   //Submit Form
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     try {
@@ -31,7 +31,7 @@ export default function AddBook({ isOpen, onClose }: Props) {
       await ApiService.post("books", {
         ...form,
         bookPrice: Number(form.bookPrice),
-        bookCategory: Number(form.bookCategory),
+        categoryID: Number(form.categoryID),
       });
 
       onClose(); // close modal
@@ -46,7 +46,7 @@ export default function AddBook({ isOpen, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/30">
-      <div className="bg-white p-6 rounded-lg w-[500px] shadow-lg">
+      <div className="bg-white p-6 rounded-lg w-125 shadow-lg">
         <h2 className="text-xl font-bold mb-4">Add Book</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,7 +76,7 @@ export default function AddBook({ isOpen, onClose }: Props) {
             placeholder="Publisher"
             value={form.publisherName}
             onChange={handleChange}
-            className="w-full border p-2 rounded"
+            className="w-full border p-2 rounded "
             required
           />
 
@@ -92,19 +92,19 @@ export default function AddBook({ isOpen, onClose }: Props) {
 
           <input
             type="number"
-            name="bookCategory"
+            name="categoryID"
             placeholder="Category ID"
-            value={form.bookCategory}
+            value={form.categoryID}
             onChange={handleChange}
             className="w-full border p-2 rounded"
-            required
+            // required
           />
 
           <div className="flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-gray-400 text-white rounded"
+              className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-black transition"
             >
               Cancel
             </button>
@@ -112,7 +112,7 @@ export default function AddBook({ isOpen, onClose }: Props) {
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-[#1e2939] text-white rounded"
+              className="px-4 py-2 bg-[#1e2939] text-white rounded hover:bg-green-400 transition"
             >
               {loading ? "Saving..." : "Save"}
             </button>
