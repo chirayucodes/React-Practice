@@ -8,7 +8,7 @@ export function useBooksQuery() {
   return useQuery({
     queryKey: QUERY_KEY,
     queryFn: async () => {
-      return await ApiService.get<Master.BookItems[]>('books');
+      return await ApiService.get<Master.BookForm[]>('books');
     },
   });
 }
@@ -17,23 +17,23 @@ export function useBooksQuery() {
 export function useCreateBookMutation() {
   const queryClient = useQueryClient();
   return  useMutation({
-    mutationFn: async (book: Master.BookForm) => {
-      const result = await ApiService.post<Master.BookItems>("books", book);
+    mutationFn: async (book: Master.BookDetails) => {
+      const result = await ApiService.post<Master.BookForm>("books", book);
       if (!result) {
         throw new Error("Failed to create book");
       }
       return result;
     },
-    onSuccess: (result: Master.BookItems) => {
+    onSuccess: (result: Master.BookForm) => {
       if (!result) {
         return;
       }
 
       const existingBooks =
-        queryClient.getQueryData<Master.BookItems[]>(QUERY_KEY);
+        queryClient.getQueryData<Master.BookForm[]>(QUERY_KEY);
 
       if (!existingBooks) return;
-      queryClient.setQueryData<Master.BookItems[]>(QUERY_KEY, [
+      queryClient.setQueryData<Master.BookForm[]>(QUERY_KEY, [
         ...existingBooks,
         result,
       ]);

@@ -1,13 +1,12 @@
 declare namespace Master {
-  interface BookForm {
-    id: number;
+  interface BookDetails {
     bookTitle: string;
     authorName: string;
     publisherName: string;
     bookPrice: number;
     categoryID: number;
   }
-  interface BookItems extends BookForm {
+  interface BookForm extends BookDetails {
     id: number;
   }
 

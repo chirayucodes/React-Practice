@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import { ApiService } from "services";
+import { useState } from "react";
 //mport Button from "shared/components/button";
 import { Grid } from "shared/components/grid";
 import { Loader } from "shared/components/loader";
 import AddBook from "./Create";
-import { useNavigate } from "react-router";
+//import { useNavigate } from "react-router";
 import { useBooksQuery, useDeleteBookMutation } from "../queries";
 
 interface BookDetails {
@@ -13,81 +12,69 @@ interface BookDetails {
   authorName: string;
   publisherName: string;
   bookPrice: number;
-  bookCategory: number;
+  categoryID: number;
 }
 
 export default function List() {
-  const navigate = useNavigate();
+  const { data = [], isLoading } = useBooksQuery();
+  const { isPending, mutateAsync } = useDeleteBookMutation();
 
-  const {data =[], isLoading}= useBooksQuery();
-  const {isPending, mutateAsync} = useDeleteBookMutation();
+  const [isOpen, setIsOpen] = useState(false); p
 
-  if (isLoading || isPending){
-    return<Loader/>
+  if (isLoading || isPending) {
+    return <Loader />;
   }
 
-  if (data.length === 0){
-    return <div>No Books Found.</div>
-  }
-
-  function setShowModal(arg0: boolean): void {
-    throw new Error("Function not implemented.");
+  if (data.length === 0) {
+    return <div>No Books Found.</div>;
   }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-10">
-       : (
-        <>
-          <h1 className="text-3xl font-bold mb-6 text-gray-800">
-            Library Books
-          </h1>
+      <>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Library Books</h1>
 
-          <button
-            onClick={() => setShowModal(true)}
-            className="mb-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
-          >
-            + Add Book
-          </button>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="mb-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
+        >
+          + Add Book
+        </button>
 
-          <Grid<BookDetails>
-            data={data}
-            columns={[
-              {
-                field: "bookTitle",
-                header: "Book Title",
+        <Grid<BookDetails>
+          data={data}
+          columns={[
+            {
+              field: "bookTitle",
+              header: "Book Title",
+            },
+            {
+              field: "authorName",
+              header: "Author",
+            },
+            {
+              field: "publisherName",
+              header: "Publisher",
+            },
+            {
+              field: "bookPrice",
+              header: "Price",
+            },
+            {
+              field: "categoryID",
+              header: "Category",
+            },
+            {
+              header: "Action",
+              buttonCaption: "Delete",
+              onClick: async (Books) => {
+                await mutateAsync(Books.id);
               },
-              {
-                field: "authorName",
-                header: "Author",
-              },
-              {
-                field: "publisherName",
-                header: "Publisher",
-              },
-              {
-                field: "bookPrice",
-                header: "Price",
-              },
-              {
-                field: "bookCategory",
-                header: "Category",
-              },
-              {
-                header: "Action",
-                buttonCaption: "Delete",
-                onClick: async (book) => {
-                  await ApiService.del(`books/${book.id}`);
-                  const updated = bookDetails.filter(
-                    (item) => item.id !== book.id,
-                  );
-                  setBookDetails(updated);
-                },
-              },
-            ]}
-          />
-          <AddBook isOpen={showModal} onClose={() => setShowModal(false)} />
-        </>
-      )}
+            },
+          ]}
+        />
+        <AddBook isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      </>
     </div>
   );
 }
