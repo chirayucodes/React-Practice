@@ -19,7 +19,7 @@ export default function List() {
   const { data = [], isLoading } = useBooksQuery();
   const { isPending, mutateAsync } = useDeleteBookMutation();
 
-  const [isOpen, setIsOpen] = useState(false); p
+  const [isOpen, setIsOpen] = useState(false); 
 
   if (isLoading || isPending) {
     return <Loader />;
