@@ -15,7 +15,7 @@ export function Grid<T>(props: GridProps<T>) {
   return (
     <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
       {/* HEADER */}
-      <thead className="bg-gradient-to-r from-black to-indigo-600 text-white">
+      <thead className="bg-linear-to-r from-black to-indigo-600 text-white">
         <tr>
           {props.columns.map((c) => (
             <th key={nanoid()} className="py-3 px-4 text-left font-semibold">

@@ -21,7 +21,6 @@ export default function AddBook({ isOpen, onClose }: Props) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  //Submit Form
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -34,7 +33,7 @@ export default function AddBook({ isOpen, onClose }: Props) {
         categoryID: Number(form.categoryID),
       });
 
-      onClose(); // close modal
+      onClose();
     } catch (error) {
       console.error("Error adding book:", error);
     } finally {

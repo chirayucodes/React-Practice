@@ -1,20 +1,21 @@
 declare namespace Master {
-  interface BookDetails {
+  interface BookForm {
     bookTitle: string;
     authorName: string;
     publisherName: string;
     bookPrice: number;
     categoryID: number;
+    bookCategory: string;
   }
-  interface BookForm extends BookDetails {
+  interface BookDetails extends BookForm {
     id: number;
   }
 
-  interface UserForm extends UserItems {
+  interface MemberForm  {
     name: string;
-    type: string;
+    typeName: string;
   }
-  interface UserItems {
+  interface MemberItems extends MemberForm {
     id: number;
-  }
+  } 
 }

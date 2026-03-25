@@ -1,11 +1,11 @@
 import { Link } from "react-router";
-import Button from "shared/components/button/index";
+import Button from "shared/components/home-button/index";
 
 export default function Home() {
   return (
-    <div className=" min-h-screen bg-gradient-to-r from-black to-indigo-600 flex items-center justify-center rounded-3xl ">
+    <div className=" min-h-screen bg-linear-to-r from-black to-indigo-600 flex items-center justify-center rounded-3xl ">
       <div className=" z-10 opacity-100 bg-transparent shadow-xl border-black shadow-black rounded-2xl p-10 text-center max-w-xl">
-        <p className=" text-4xl font-bold bg-gradient-to-r from-indigo-600 via-white to-black mb-4 text-transparent bg-clip-text">
+        <p className=" text-4xl font-bold bg-linear-to-r from-indigo-600 via-white to-black mb-4 text-transparent bg-clip-text">
           Welcome to Library Management System
         </p>
 

@@ -6,20 +6,11 @@ import AddBook from "./Create";
 //import { useNavigate } from "react-router";
 import { useBooksQuery, useDeleteBookMutation } from "../queries";
 
-interface BookDetails {
-  id: number;
-  bookTitle: string;
-  authorName: string;
-  publisherName: string;
-  bookPrice: number;
-  categoryID: number;
-}
-
 export default function List() {
   const { data = [], isLoading } = useBooksQuery();
   const { isPending, mutateAsync } = useDeleteBookMutation();
 
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
 
   if (isLoading || isPending) {
     return <Loader />;
@@ -41,7 +32,7 @@ export default function List() {
           + Add Book
         </button>
 
-        <Grid<BookDetails>
+        <Grid<Master.BookDetails>
           data={data}
           columns={[
             {
@@ -61,7 +52,7 @@ export default function List() {
               header: "Price",
             },
             {
-              field: "categoryID",
+              field: "bookCategory",
               header: "Category",
             },
             {
