@@ -48,7 +48,7 @@ export default function TextBox<TForm extends FieldValues>(
                 type="text"
                 placeholder={placeholder}
                 disabled={disabled}
-                className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white 
+                className="w-full px-3 py-2 rounded-lg bg-white border border-slate-700 text-black 
                 focus:outline-none focus:ring-2 focus:ring-indigo-400 disabled:opacity-50"
               />
               <div className="text-red-500 text-sm mt-1">

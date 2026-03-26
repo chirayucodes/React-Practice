@@ -13,7 +13,8 @@ declare namespace Master {
 
   interface MemberForm  {
     name: string;
-    typeName: string;
+    typeName?: string;
+    memberTypeID?: number;
   }
   interface MemberItems extends MemberForm {
     id: number;
