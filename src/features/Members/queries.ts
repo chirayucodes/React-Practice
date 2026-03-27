@@ -28,32 +28,67 @@ export function useRemoveMemberMutation() {
   return rs;
 }
 
-// export function useUpdateMemberMutation(memberId: number) {
+export function useUpdateMemberMutation(id: number) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (member: Master.MemberForm) =>
+      await ApiService.put<Master.MemberItems>(
+        "Members/" + id,
+        member,
+      ),
+    onSuccess: (result) => { 
+      if (!result) {
+        return;
+      }
+      const existing = queryClient.getQueryData<Master.MemberItems[]>(QUERY_KEY);
+      if (!existing) {
+        return;
+      }
+      const index = existing.findIndex(
+        (item) => item.id === id,
+      );
+      const first = existing.slice(0, index);
+      const next = existing.slice(index + 1);
+      queryClient.setQueryData<Master.MemberItems[]>(QUERY_KEY, [...first, result, ...next]);
+    },
+  });
+}
+
+// export function useUpdateMemberMutation(id: number) {
 //   const queryClient = useQueryClient();
+
 //   return useMutation({
 //     mutationFn: async (member: Master.MemberForm) =>
-//       await ApiService.put<Master.MemberItems[]>(
-//         "Members/" + memberId,
+//       await ApiService.put<Master.MemberItems>(
+//         "Members/" + id,
 //         member,
 //       ),
+
 //     onSuccess: (result) => {
-//       if (!result) {
-//         return;
-//       }
-//       const existing = queryClient.getQueryData<Master.MemberItems[]>(QUERY_KEY);
-//       if (!existing) {
-//         return;
-//       }
+//       if (!result) return;
+
+//       const existing =
+//         queryClient.getQueryData<Master.MemberItems[]>(QUERY_KEY);
+
+//       if (!existing) return;
+
 //       const index = existing.findIndex(
-//         (item) => item.id === memberId,
+//         (item) => item.id === id
 //       );
+
+//       if (index === -1) return;
+
 //       const first = existing.slice(0, index);
-//       const next = existing.slice(index + 1);
-//       queryClient.setQueryData(QUERY_KEY, [...first, result, ...next]);
+//       const updated = existing.slice(index + 1);
+
+//       queryClient.setQueryData<Master.MemberItems[]>(QUERY_KEY, [
+//         ...first,
+//         result, 
+//         ...updated,
+//       ]);
 //     },
 //   });
 // }
-
 export function useNewMemberMutation(){
   const queryClient = useQueryClient();
   return useMutation({

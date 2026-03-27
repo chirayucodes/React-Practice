@@ -19,7 +19,7 @@ export async function del<TResult>(url: string) {
 }
 
 async function request<TResult>(method: string, url: string, body?: unknown) {
-  const response = await fetch('https://localhost:7215/api/' + url, {
+  const response = await fetch('http://localhost:5042/api/' + url, {
     method: method,
     body: body ? JSON.stringify(body) : undefined,
     headers: {

@@ -16,10 +16,7 @@ export function useMemberForm(onLoad?: () => Promise<Master.MemberForm>) {
     register,
     reset,
   } = useForm<Master.MemberForm>({
-    defaultValues: {
-      name: '',
-      memberTypeID: 0,
-    },
+    defaultValues: onLoad,
     resolver: joiResolver(schema),
   });
 

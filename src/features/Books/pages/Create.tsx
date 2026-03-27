@@ -45,7 +45,7 @@ export default function AddBook({ isOpen, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/30">
-      <div className="bg-white p-6 rounded-lg w-125 shadow-lg">
+      <div className="bg-white p-6 rounded w-125 shadow-lg ">
         <h2 className="text-xl font-bold mb-4">Add Book</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">

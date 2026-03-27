@@ -29,7 +29,7 @@ export default function TextBox<TForm extends FieldValues>(
   return (
     <div className="mb-4">
       <label
-        className="block text-slate-300 text-sm font-medium mb-1"
+        className="block text-black text-xl font-medium mb-1"
         htmlFor={name}
       >
         {label}

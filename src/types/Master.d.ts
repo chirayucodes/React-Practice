@@ -15,6 +15,7 @@ declare namespace Master {
     name: string;
     typeName?: string;
     memberTypeID?: number;
+    maxBooks?: number;
   }
   interface MemberItems extends MemberForm {
     id: number;
