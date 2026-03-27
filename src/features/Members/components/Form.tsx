@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { TextBox } from "shared/components/form";
 import { Button } from "shared/components/submit-button";
 import { useMemberForm } from "./Member.Form";
-import { Controller } from "react-hook-form";
+// import { Controller } from "react-hook-form";
 
 interface FormProps {
   onSubmit: (p: Master.MemberForm) => Promise<void>;
@@ -25,9 +25,9 @@ export default function Form({ onSubmit, onLoad, ...props }: FormProps) {
         })}
       >
         <TextBox label="Member Name" {...get("name")} />
-        {/* <TextBox label="Member Type" {...get("memberTypeID")} /> */}
+        <TextBox label="Member Type" {...get("memberTypeID")} />
 
-        <Controller
+        {/* <Controller
           control={get("typeName").control}
           name="memberTypeID"
           render={({ field }) => (
@@ -41,7 +41,7 @@ export default function Form({ onSubmit, onLoad, ...props }: FormProps) {
               <option value={2}>Premium</option>
             </select>
           )}
-        />
+        /> */}
 
 
         <Button
